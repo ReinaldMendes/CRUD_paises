@@ -11,14 +11,15 @@ const indiceInvalido = (indice) =>
 
 const listagem = () => {
   paises.forEach((pais, i) => {
-    console.log(`${i + 1} - ${pais.nome}  `);
+    console.log(`${i + 1} - ${pais.nome}`);
   });
 };
+
 const modelo = () => {
   let pais = {}; // não posso adicionar atributos em algo indefinido
 
   while (true) {
-    pais.nome = prompt("Qual é o nome do Pais ? ");
+    pais.nome = prompt("Qual é o nome do País? ");
     if (nomeInvalido(pais.nome)) {
       console.log("O nome não pode ser vazio");
     } else {
@@ -28,28 +29,28 @@ const modelo = () => {
 
   return pais;
 };
+
 const criar = () => {
   const pais = modelo();
 
   paises.push(pais);
 
-  console.log("Pais criado com sucesso");
+  console.log("País criado com sucesso");
 };
 
 const atualizar = () => {
   while (true) {
     if (paises.length == 0) {
-      console.log("Lista de paises vazia");
+      console.log("Lista de países vazia");
       break;
     }
 
     listagem();
 
-    const indice =
-      lerIndice("Qual é o indice do Pais que deseja atualizar? ") - 1;
+    const indice = lerIndice("Qual é o índice do País que deseja atualizar? ") - 1;
 
     if (indiceInvalido(indice)) {
-      console.log("Indice inválido");
+      console.log("Índice inválido");
     } else {
       const pais = modelo();
       paises[indice] = pais;
@@ -62,19 +63,13 @@ const remover = () => {
   while (true) {
     listagem();
 
-    const indice =
-      lerIndice("Qual é o indice do pais que deseja remover? ") - 1;
+    const indice = lerIndice("Qual é o índice do país que deseja remover? ") - 1;
 
     if (indiceInvalido(indice)) {
-      console.log("Indice inválido");
+      console.log("Índice inválido");
     } else {
-      paises.forEach((pais) => {
-        if (pais.sequencia == indice) {
-          pais.sequencia = -1;
-        }
-      });
       paises.splice(indice, 1);
-      console.log("Jogo removido com sucesso");
+      console.log("País removido com sucesso");
       break;
     }
   }
@@ -85,4 +80,5 @@ module.exports = {
   atualizar,
   remover,
   listagem,
+  paises
 };
