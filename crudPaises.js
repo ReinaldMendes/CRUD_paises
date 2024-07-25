@@ -7,19 +7,13 @@ const lerIndice = (mensagem) => parseInt(prompt(mensagem));
 const nomeInvalido = (nome) => nome == "";
 
 const indiceInvalido = (indice) =>
-  indice < 0 || indice >= jogos.length || isNaN(indice);
+  indice < 0 || indice >= paises.length || isNaN(indice);
 
-const listagem = () =>
-  jogos.forEach((pais, i) => {
-    let sequencia;
-    if (pais.sequencia != -1) {
-      sequencia = paises[pais.sequencia].nome;
-    } else {
-      sequencia = "Não possui sequência";
-    }
-    console.log(`${i + 1} - ${pais.nome} - ${pais.continente} `);
+const listagem = () => {
+  paises.forEach((pais, i) => {
+    console.log(`${i + 1} - ${pais.nome}  `);
   });
-
+};
 const modelo = () => {
   let pais = {}; // não posso adicionar atributos em algo indefinido
 
@@ -27,39 +21,6 @@ const modelo = () => {
     pais.nome = prompt("Qual é o nome do Pais ? ");
     if (nomeInvalido(pais.nome)) {
       console.log("O nome não pode ser vazio");
-    } else {
-      break;
-    }
-  }
-
-  while (true) {
-    pais.continete = prompt("Qual é o continente do pais? ");
-    if (nomeInvalido(pais.continente)) {
-      console.log("O continente não pode ser vazio");
-    } else {
-      break;
-    }
-  }
-
-  while (true) {
-    if (paises.length == 0) {
-      pais.sequencia = -1;
-      break;
-    }
-
-    listagem();
-
-    pais.sequencia = lerIndice("Qual é o estado do pais?") - 1;
-
-    // jogos.forEach((el, i) => {
-    //     if(el.nome == jogo.sequencia) {
-    //         jogo.sequencia = i
-    //         return
-    //     }
-    // })
-
-    if (pais.sequencia != -1 && indiceInvalido(pais.sequencia)) {
-      console.log("A sequencia é invalida");
     } else {
       break;
     }
@@ -107,7 +68,7 @@ const remover = () => {
     if (indiceInvalido(indice)) {
       console.log("Indice inválido");
     } else {
-      jogos.forEach((pais) => {
+      paises.forEach((pais) => {
         if (pais.sequencia == indice) {
           pais.sequencia = -1;
         }

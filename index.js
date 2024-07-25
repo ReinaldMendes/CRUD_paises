@@ -1,5 +1,5 @@
 const prompt = require("prompt-sync")();
-const { criar, atualizar, remover, listagem } = require("./jogo.js");
+const { criar, atualizar, remover, listagem } = require("./crudCidades.js");
 while (true) {
   console.log(` 1 - Criar
     2- Listar
