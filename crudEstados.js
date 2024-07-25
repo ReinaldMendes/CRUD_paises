@@ -1,6 +1,5 @@
-
 const prompt = require("prompt-sync")();
-const { listagem: listarPaises } = require("./crudPaises.js");
+const { listagem: listarPaises, paises } = require("./crudPaises.js");
 const estados = [];
 
 const lerIndice = (mensagem) => parseInt(prompt(mensagem));
@@ -37,7 +36,15 @@ const modelo = () => {
   }
 
   listarPaises();
-  const indicePais = lerIndice("Qual é o índice do País do Estado? ") - 1;
+  let indicePais;
+  while (true) {
+    indicePais = lerIndice("Qual é o índice do País do Estado? ") - 1;
+    if (indiceInvalido(indicePais)) {
+      console.log("Índice de país inválido");
+    } else {
+      break;
+    }
+  }
   estado.pais = paises[indicePais];
 
   return estado;
@@ -93,4 +100,5 @@ module.exports = {
   atualizar,
   remover,
   listagem,
+  estados
 };
