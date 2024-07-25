@@ -1,5 +1,5 @@
 const prompt = require("prompt-sync")();
-const { listagem: listarEstados } = require("./crudEstados.js");
+const { listagem: listarEstados, estados } = require("./crudEstados.js");
 const cidades = [];
 
 const lerIndice = (mensagem) => parseInt(prompt(mensagem));
@@ -36,7 +36,15 @@ const modelo = () => {
   }
 
   listarEstados();
-  const indiceEstado = lerIndice("Qual é o índice do Estado da Cidade? ") - 1;
+  let indiceEstado;
+  while (true) {
+    indiceEstado = lerIndice("Qual é o índice do Estado da Cidade? ") - 1;
+    if (indiceInvalido(indiceEstado)) {
+      console.log("Índice de estado inválido");
+    } else {
+      break;
+    }
+  }
   cidade.estado = estados[indiceEstado];
 
   return cidade;
