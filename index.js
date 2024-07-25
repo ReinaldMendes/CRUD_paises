@@ -1,7 +1,22 @@
 const prompt = require("prompt-sync")();
-const { criar: criarCidade, atualizar: atualizarCidade, remover: removerCidade, listagem: listarCidades } = require("./crudCidades.js");
-const { criar: criarEstado, atualizar: atualizarEstado, remover: removerEstado, listagem: listarEstados } = require("./crudEstados.js");
-const { criar: criarPais, atualizar: atualizarPais, remover: removerPais, listagem: listarPaises } = require("./crudPaises.js");
+const {
+  criar: criarCidade,
+  atualizar: atualizarCidade,
+  remover: removerCidade,
+  listagem: listarCidades,
+} = require("./crudCidades.js");
+const {
+  criar: criarEstado,
+  atualizar: atualizarEstado,
+  remover: removerEstado,
+  listagem: listarEstados,
+} = require("./crudEstados.js");
+const {
+  criar: criarPais,
+  atualizar: atualizarPais,
+  remover: removerPais,
+  listagem: listarPaises,
+} = require("./crudPaises.js");
 
 while (true) {
   console.log(`
