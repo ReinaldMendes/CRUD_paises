@@ -1,5 +1,6 @@
+
 const prompt = require("prompt-sync")();
-// const { criar, atualizar, remover, listagem } = require("./crudPaises.js");
+const { listagem: listarPaises } = require("./crudPaises.js");
 const estados = [];
 
 const lerIndice = (mensagem) => parseInt(prompt(mensagem));
@@ -11,9 +12,10 @@ const indiceInvalido = (indice) =>
 
 const listagem = () => {
   estados.forEach((estado, i) => {
-    console.log(`${i + 1} - ${estado.sigla} - ${estado.nome}   `);
+    console.log(`${i + 1} - ${estado.sigla} - ${estado.nome} - País: ${estado.pais.nome}`);
   });
 };
+
 const modelo = () => {
   let estado = {}; // não posso adicionar atributos em algo indefinido
 
@@ -26,7 +28,7 @@ const modelo = () => {
     }
   }
   while (true) {
-    estado.nome = prompt("Qual é o nome do Estado ? ");
+    estado.nome = prompt("Qual é o nome do Estado? ");
     if (nomeInvalido(estado.nome)) {
       console.log("O nome não pode ser vazio");
     } else {
@@ -34,8 +36,13 @@ const modelo = () => {
     }
   }
 
+  listarPaises();
+  const indicePais = lerIndice("Qual é o índice do País do Estado? ") - 1;
+  estado.pais = paises[indicePais];
+
   return estado;
 };
+
 const criar = () => {
   const estado = modelo();
 
@@ -53,11 +60,10 @@ const atualizar = () => {
 
     listagem();
 
-    const indice =
-      lerIndice("Qual é o indice do EStado que deseja atualizar? ") - 1;
+    const indice = lerIndice("Qual é o índice do Estado que deseja atualizar? ") - 1;
 
     if (indiceInvalido(indice)) {
-      console.log("Indice inválido");
+      console.log("Índice inválido");
     } else {
       const estado = modelo();
       estados[indice] = estado;
@@ -70,17 +76,11 @@ const remover = () => {
   while (true) {
     listagem();
 
-    const indice =
-      lerIndice("Qual é o indice do estado que deseja remover? ") - 1;
+    const indice = lerIndice("Qual é o índice do estado que deseja remover? ") - 1;
 
     if (indiceInvalido(indice)) {
-      console.log("Indice inválido");
+      console.log("Índice inválido");
     } else {
-      estados.forEach((estado) => {
-        if (estado.sequencia == indice) {
-          estado.sequencia = -1;
-        }
-      });
       estados.splice(indice, 1);
       console.log("Estado removido com sucesso");
       break;
