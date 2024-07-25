@@ -1,5 +1,5 @@
 const prompt = require("prompt-sync")();
-// const { criar, atualizar, remover, listagem } = require("./crudPaises.js");
+const { listagem: listarEstados } = require("./crudEstados.js");
 const cidades = [];
 
 const lerIndice = (mensagem) => parseInt(prompt(mensagem));
@@ -11,9 +11,10 @@ const indiceInvalido = (indice) =>
 
 const listagem = () => {
   cidades.forEach((cidade, i) => {
-    console.log(`${i + 1} - ${cidade.sigla} - ${cidade.nome}   `);
+    console.log(`${i + 1} - ${cidade.sigla} - ${cidade.nome} - Estado: ${cidade.estado.nome} - País: ${cidade.estado.pais.nome}`);
   });
 };
+
 const modelo = () => {
   let cidade = {}; // não posso adicionar atributos em algo indefinido
 
@@ -26,7 +27,7 @@ const modelo = () => {
     }
   }
   while (true) {
-    cidade.nome = prompt("Qual é o nome da Cidade ? ");
+    cidade.nome = prompt("Qual é o nome da Cidade? ");
     if (nomeInvalido(cidade.nome)) {
       console.log("O nome não pode ser vazio");
     } else {
@@ -34,8 +35,13 @@ const modelo = () => {
     }
   }
 
+  listarEstados();
+  const indiceEstado = lerIndice("Qual é o índice do Estado da Cidade? ") - 1;
+  cidade.estado = estados[indiceEstado];
+
   return cidade;
 };
+
 const criar = () => {
   const cidade = modelo();
 
@@ -53,11 +59,10 @@ const atualizar = () => {
 
     listagem();
 
-    const indice =
-      lerIndice("Qual é o indice da Cidade que deseja atualizar? ") - 1;
+    const indice = lerIndice("Qual é o índice da Cidade que deseja atualizar? ") - 1;
 
     if (indiceInvalido(indice)) {
-      console.log("Indice inválido");
+      console.log("Índice inválido");
     } else {
       const cidade = modelo();
       cidades[indice] = cidade;
@@ -70,17 +75,11 @@ const remover = () => {
   while (true) {
     listagem();
 
-    const indice =
-      lerIndice("Qual é o indice da cidade que deseja remover? ") - 1;
+    const indice = lerIndice("Qual é o índice da cidade que deseja remover? ") - 1;
 
     if (indiceInvalido(indice)) {
-      console.log("Indice inválido");
+      console.log("Índice inválido");
     } else {
-      cidades.forEach((cidade) => {
-        if (cidade.sequencia == indice) {
-          cidade.sequencia = -1;
-        }
-      });
       cidades.splice(indice, 1);
       console.log("Cidade removida com sucesso");
       break;
